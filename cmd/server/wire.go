@@ -6,7 +6,6 @@
 package main
 
 import (
-	"github.com/CyanPigeon/kratos-template/internal/biz"
 	"github.com/CyanPigeon/kratos-template/internal/conf"
 	"github.com/CyanPigeon/kratos-template/internal/data"
 	"github.com/CyanPigeon/kratos-template/internal/server"
@@ -19,5 +18,10 @@ import (
 
 // wireApp init kratos application.
 func wireApp(*conf.Server, *conf.Data, log.Logger) (*kratos.App, func(), error) {
-	panic(wire.Build(server.ProviderSet, data.ProviderSet, biz.ProviderSet, service.ProviderSet, newApp))
+	panic(wire.Build(
+		data.ProviderSet, 
+		server.ProviderSet, 
+		service.ProviderSet, 
+		newApp
+	))
 }
