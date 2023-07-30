@@ -12,5 +12,5 @@ type Entity struct {
 // EntityRepo 实体的读/写/查询操作接口。
 // TODO 'EntityRepo'需要替换为对应的实体表名，后缀统一为Repo
 type EntityRepo interface {
-	// TODO 此处填写对实体的操作
+	// TODO 此处填写对实体的操作，即增删改查
 }

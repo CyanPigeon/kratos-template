@@ -29,9 +29,10 @@ func NewGRPCServer(c *conf.Server, serv *service.DemoService, logger log.Logger)
 	}
 	srv := grpc.NewServer(opts...)
 
-	// TODO 在此调用endpoint的gRPC服务注册函数。
+	// TODO 在此调用API的gRPC服务注册函数。
 	// TODO 一般来说，gRPC服务注册函数为`Register${ApiName}Server`，其中`${ApiName}`为Api名。
 	// TODO 如果有多个gRPC服务，**需要在此将它们全部注册**。
+	// TODO 请注意：如果有多个gRPC服务，说明你有多个Service，因此你需要增加方法的参数，告诉wire你需要更多的Service。
 	// TODO 下一行为示例代码。
 	v1.RegisterDemoServer(srv, serv)
 
