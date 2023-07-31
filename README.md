@@ -83,7 +83,7 @@ kratos proto client api/{package}/{api}.proto
 生成service
 
 ```bash
-kratos proto server api/{package}/{api}.proto t internal/service
+kratos proto server api/{package}/{api}.proto -t internal/service
 ```
 
 在 `internal/service/{api}.go` 生成了相应的service
