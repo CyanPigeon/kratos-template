@@ -2,9 +2,8 @@ package main
 
 import (
 	"flag"
+	"github.com/CyanPigeon/kratos-template/app/demo/internal/conf"
 	"os"
-
-	"github.com/CyanPigeon/kratos-template/internal/conf"
 
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/config"

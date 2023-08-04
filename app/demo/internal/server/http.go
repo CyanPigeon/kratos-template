@@ -2,9 +2,8 @@ package server
 
 import (
 	v1 "github.com/CyanPigeon/kratos-template/api/demo/v1"
-	"github.com/CyanPigeon/kratos-template/internal/conf"
-	"github.com/CyanPigeon/kratos-template/internal/service"
-
+	"github.com/CyanPigeon/kratos-template/app/demo/internal/conf"
+	"github.com/CyanPigeon/kratos-template/app/demo/internal/service"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/go-kratos/kratos/v2/middleware/recovery"
 	"github.com/go-kratos/kratos/v2/transport/http"

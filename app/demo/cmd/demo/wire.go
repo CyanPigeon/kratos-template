@@ -6,11 +6,10 @@
 package main
 
 import (
-	"github.com/CyanPigeon/kratos-template/internal/conf"
-	"github.com/CyanPigeon/kratos-template/internal/data"
-	"github.com/CyanPigeon/kratos-template/internal/server"
-	"github.com/CyanPigeon/kratos-template/internal/service"
-
+	"github.com/CyanPigeon/kratos-template/app/demo/internal/conf"
+	"github.com/CyanPigeon/kratos-template/app/demo/internal/data"
+	"github.com/CyanPigeon/kratos-template/app/demo/internal/server"
+	"github.com/CyanPigeon/kratos-template/app/demo/internal/service"
 	"github.com/go-kratos/kratos/v2"
 	"github.com/go-kratos/kratos/v2/log"
 	"github.com/google/wire"

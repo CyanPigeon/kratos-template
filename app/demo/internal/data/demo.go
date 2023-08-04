@@ -1,8 +1,7 @@
 package data
 
 import (
-	"github.com/CyanPigeon/kratos-template/internal/biz"
-
+	"github.com/CyanPigeon/kratos-template/app/demo/internal/biz"
 	"github.com/go-kratos/kratos/v2/log"
 )
 
