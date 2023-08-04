@@ -3,6 +3,8 @@ package main
 import (
 	"flag"
 	"github.com/CyanPigeon/kratos-template/app/demo/internal/conf"
+	"github.com/go-kratos/kratos/contrib/registry/consul/v2"
+	"github.com/hashicorp/consul/api"
 	"os"
 
 	"github.com/go-kratos/kratos/v2"
@@ -33,6 +35,15 @@ func init() {
 }
 
 func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server) *kratos.App {
+
+	// new consul client
+	client, err := api.NewClient(api.DefaultConfig())
+	if err != nil {
+		panic(err)
+	}
+	// new reg with consul client
+	reg := consul.New(client)
+
 	return kratos.New(
 		kratos.ID(id),
 		kratos.Name(Name),
@@ -43,6 +54,7 @@ func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server) *kratos.App {
 			gs,
 			hs,
 		),
+		kratos.Registrar(reg),
 	)
 }
 
