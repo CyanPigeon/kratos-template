@@ -4,6 +4,8 @@ import (
 	"flag"
 	"os"
 
+	"github.com/go-kratos/kratos/v2/registry"
+
 	"github.com/CyanPigeon/kratos-template/internal/conf"
 
 	"github.com/go-kratos/kratos/v2"
@@ -19,10 +21,11 @@ import (
 
 // go build -ldflags "-X main.Version=x.y.z"
 var (
-	// Name is the name of the compiled software.
+	// Name 微服务名称。如果不设置该名称，可能会出现找不到微服务的问题
+	// TODO 必须设置Name(虽然编译的时候可以设置这个值，但是最好还是手动设置一下)
 	Name string
-	// Version is the version of the compiled software.
-	Version string
+	// Version 微服务版本。
+	Version string = "1.0.0"
 	// flagconf is the config flag.
 	flagconf string
 
@@ -33,7 +36,7 @@ func init() {
 	flag.StringVar(&flagconf, "conf", "../../configs", "config path, eg: -conf config.yaml")
 }
 
-func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server) *kratos.App {
+func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server, reg registry.Registrar) *kratos.App {
 	return kratos.New(
 		kratos.ID(id),
 		kratos.Name(Name),
@@ -44,6 +47,7 @@ func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server) *kratos.App {
 			gs,
 			hs,
 		),
+		kratos.Registrar(reg),
 	)
 }
 
