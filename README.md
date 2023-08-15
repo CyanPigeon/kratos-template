@@ -134,9 +134,16 @@ kratos run
 由于某些不可抗的因素，`internal/server/http.go`和`internal/server/grpc.go`中的部分import会报错，删掉多余的路径就行。
 ### 方案二
 直接在demo上面修改。这个方案应该不用多说啥。
-## 路由注册
-TODO，还没研究怎么把所有的微服务集中起来。
+## 服务发现
+修改`internal/registrar/registrar.go#L22`为当前微服务的终结点的前缀，然后就可以使用服务发现功能。
 
+举个例子，如果是用户登录的微服务，即实现的是[这一组接口](https://github.com/CyanPigeon/IDL/blob/main/user/user.proto)，那么上述位置的路径需要修改为`/douyin/user`。
+
+**注意事项：**
+1. 如果你的项目目录中没有`middleware/discovery`，请先使用`git pull`来更新代码。
+2. 如果没有使用本仓库的模板来创建app，请参照`cmd/server/main.go`和`internal/registrar`中的内容自行修改自己的代码。
+3. 如果是在本次提交之前就通过本仓库的模板创建了app，可以手动更新文件，只需要更新`cmd/server/main.go`和`internal/registrar`即可。
+4. 务必修改`internal/registrar/registrar.go#L22`和`cmd/server/main.go#L25`，否则网关无法将请求路由至微服务。
 ## Docker
 ```bash
 # build
