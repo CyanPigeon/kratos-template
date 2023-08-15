@@ -24,6 +24,79 @@ toktik
         └─ service         # 业务代码。MVC的C。
             └─ service.go  # IoC相关，一般是来修改函数名的。对于service，如果有多个api，需要在wire.NewSet()里面增加构造函数。
 ```
+## 创建HTTP接口
+
+> 参考 [kratos-gorm-git](https://github.com/getcharzp/kratos-gorm-git)
+> 
+> B站  [【项目实战】基于Kratos、gorm、git实现 代码托管平台](https://www.bilibili.com/video/BV17Y4y1y7jt)
+
+> 在本标题 `创建HTTP接口` 下面提到的所有加 **{ }** 的表示 **自己填写补充的内容** ，**请自行替换**
+
+首先创建一个proto文件
+
+```bash
+kratos proto add api/{package}/{api}.proto
+```
+
+如果加入版本号，则
+
+```bash
+kratos proto add api/{package}/{version}/{api}.proto
+```
+
+编辑proto文件，添加引用，删除多余的rpc和message，定义方法和路由
+
+最后的文件内容将类似示例
+
+> package => dy; 
+> 
+> api => feed;
+
+```proto
+syntax = "proto3";
+
+package api.dy;
+
+import "google/api/annotations.proto";
+option go_package = "demo/api/dy;dy";
+
+//定义一个叫Feed的service，其中FeedRequest为请求体，FeedReply为响应体
+//option那一行必须写才能定义http接口，get表GET方法，后面跟路由
+service Feed {
+  rpc Feed (FeedRequest) returns (FeedReply){
+    option(google.api.http) = {
+      get:"/feed"
+    };
+  }
+}
+
+message FeedRequest {}
+message FeedReply {}
+```
+
+codegen出来proto的go文件
+
+```bash
+kratos proto client api/{package}/{api}.proto
+```
+
+生成service
+
+```bash
+kratos proto server api/{package}/{api}.proto t internal/service
+```
+
+在 `internal/service/{api}.go` 生成了相应的service
+
+打开 `internal/server/http.go` 文件
+
+定位到 `v1.RegisterGreeterHTTPServer(srv, greeter)` 这一行，在下方加入
+
+```go
+	{package}.Register{API}HTTPServer(srv, service.New{API}Service())
+```
+
+启动服务端，调试接口
 
 ## 创建微服务
 *很好，kratos的cli工具有猫饼，加了--nomod参数过后这个import跟喝了假酒一样*
