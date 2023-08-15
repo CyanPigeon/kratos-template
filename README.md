@@ -100,7 +100,8 @@ kratos proto server api/{package}/{api}.proto t internal/service
 
 ## 创建微服务
 *很好，kratos的cli工具有猫饼，加了--nomod参数过后这个import跟喝了假酒一样*
-*不过我已经把问题解决了*
+
+*不过问题已经解决了，记得更新kratos的cli工具*
 ### 方案一
 ```bash
 # 用的bash语法，记得把变量替换一下，免得创建出一堆乱七八糟的怪东西出来。
