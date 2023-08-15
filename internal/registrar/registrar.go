@@ -9,6 +9,18 @@ import (
 
 var ProviderSet = wire.NewSet(NewRegistry)
 
-func NewRegistry() (registry.Registrar, error) {
-	return discovery.New(api.DefaultConfig())
+type RegistryConfig struct {
+	Metadata  map[string]string
+	Registrar registry.Registrar
+}
+
+func NewRegistry() (config *RegistryConfig, err error) {
+	config = new(RegistryConfig)
+	config.Metadata = map[string]string{
+		// 当前微服务注册的终结点前缀。
+		// 例如：对于user，这里应该设置为/douyin/user
+		"prefix": "/ping", // TODO <- 必须修改这里的路径。
+	}
+	config.Registrar, err = discovery.New(api.DefaultConfig())
+	return
 }
